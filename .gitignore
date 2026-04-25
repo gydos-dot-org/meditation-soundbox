@@ -1,0 +1,26 @@
+# =========================
+# Build outputs
+# =========================
+bin/
+obj/
+
+# =========================
+# Generated audio artifacts
+# =========================
+exports/
+speech-cache/
+*.wav
+
+# =========================
+# OS / editor noise
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+
+# =========================
+# Optional (leave commented if you WANT them tracked)
+# =========================
+# tools/
+# voices/
+# data/metav/
