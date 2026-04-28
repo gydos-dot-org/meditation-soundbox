@@ -1,8 +1,12 @@
 \# Meditation Soundbox — ROADMAP.md
 
-Author: Paul Gydos (paul@gydos.org)  
 
-GitHub: https://github.com/gydos-dot-org/meditation-soundbox  
+
+Author: Paul Gydos  
+
+Email: paul@gydos.org  
+
+GitHub: https://github.com/gydos-dot-org/meditation-soundbox
 
 
 
@@ -14,19 +18,7 @@ GitHub: https://github.com/gydos-dot-org/meditation-soundbox
 
 
 
-Meditation Soundbox is evolving into a multi-channel, scriptable, AI-assisted audio environment for:
-
-
-
-\- Focus
-
-\- Prayer / Scripture meditation
-
-\- Creative work
-
-\- Recovery support
-
-\- Deep mental state tuning
+Meditation Soundbox is evolving into a Windows-first, local-first, scriptable sound environment for meditation, prayer, Scripture reading, focus, recovery support, and creative work.
 
 
 
@@ -34,19 +26,57 @@ Meditation Soundbox is evolving into a multi-channel, scriptable, AI-assisted au
 
 
 
-\## Architecture Direction
+\## Core Architecture Direction
 
 
 
-Current:
-
-Single profile → single audio output
+Target system:
 
 
 
-Target:
+Session Engine
 
-Session → Mixer → Channels → Transition Engine → Output + Recording
+&#x20;   ↓
+
+Config/Profile System
+
+&#x20;   ↓
+
+Music Bus / Rhythm Bus / Voice Bus
+
+&#x20;   ↓
+
+Transition Engine
+
+&#x20;   ↓
+
+Master Output + Recording + Logs
+
+
+
+\---
+
+
+
+\### Three-Bus Mixer Model
+
+
+
+Frequency / Tones
+
+&#x20;     ↓
+
+Flavor / Music Processing
+
+&#x20;     ↓
+
+Finished Music Output  ─┐
+
+&#x20;                        ├── Master Mix → Output + Recording
+
+Rhythm Output ───────────┤
+
+Voice / Reading Output ──┘
 
 
 
@@ -78,11 +108,13 @@ Session → Mixer → Channels → Transition Engine → Output + Recording
 
 \### MixerState
 
-Channels:
 
-\- Frequency
 
-\- Music
+Three buses:
+
+
+
+\- Music (Frequency/Tones processed through Flavor)
 
 \- Rhythm
 
@@ -90,13 +122,33 @@ Channels:
 
 
 
-Each channel:
+Music bus internally contains:
 
-\- volume
 
-\- target volume
 
-\- fade speed
+\- frequency set (double precision)
+
+\- oscillator slots
+
+\- waveform
+
+\- flavor / synthesis type
+
+\- musical variation
+
+\- strength
+
+\- glide / transitions
+
+
+
+Each bus has:
+
+\- volume (current)
+
+\- target volume (for smooth transitions)
+
+\- fade speed / interpolation
 
 
 
@@ -254,15 +306,17 @@ y2026m04d27\_p0423\_SndBx\_focus.wav
 
 
 
-\- Independent channels:
-
-&#x20; - frequency
+\- Three-bus mixer:
 
 &#x20; - music
 
 &#x20; - rhythm
 
 &#x20; - voice
+
+
+
+\- Music bus includes internal oscillator + flavor processing
 
 
 
@@ -374,23 +428,31 @@ y2026m04d27\_p0423\_SndBx\_focus.wav
 
 
 
-Create branch:
+1\. Wire `SndBxConfig` into `Program.cs`
+
+&#x20;  - Implement `--profile default`
+
+&#x20;  - Load voice, frequencies, BPM, mode, and strength from config
 
 
 
-git checkout -b v0.3.3-dev
+2\. Integrate `KjvParser` into the `kjv` command
+
+&#x20;  - Support full chapter loading
+
+&#x20;  - Use clean reading buffer for Piper
 
 
 
-Commit:
+3\. Replace export naming with `RecordingNamer`
 
 
 
-git add ROADMAP.md
+4\. Update README to reflect:
 
-git commit -m "Add roadmap"
+&#x20;  - scaffolded vs fully wired features
 
-git push -u origin v0.3.3-dev
+&#x20;  - profile-based launch
 
 
 
