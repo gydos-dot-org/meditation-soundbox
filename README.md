@@ -14,7 +14,7 @@ Project owner: Paul Gydos
 Email: paul@gydos.org  
 GitHub: gydos-dot-org
 
-Assistant collaborator: OpenAI ChatGPT, GPT-5.5 Thinking
+Assistant collaborator: OpenAI ChatGPT, GPT-5.5 Thinking, Kimi Thinking 2.6, Kimi Instant 2.6 
 
 ## Current status
 
@@ -25,7 +25,7 @@ This is still a prototype, but it is now useful:
 - Pasted text renders through Piper.
 - Repeated `read` now restarts from the beginning.
 - New text/KJV passages now force fresh Piper rendering.
-- Async music-only export works and prints the output path.
+- [Async music-only export works and prints the output path.] <-- Does it?
 
 ## Known limitations
 
@@ -56,15 +56,6 @@ cd C:\meditate-soundbox-v0.3.2.5\meditative-reader-starter
 Copy-Item -Recurse -Force C:\meditate-soundbox-v0.3.2.5\meditative-reader-starter\tools .\
 Copy-Item -Recurse -Force C:\meditate-soundbox-v0.3.2.5\meditative-reader-starter\voices .\
 Copy-Item -Recurse -Force C:\meditate-soundbox-v0.3.2.5\meditative-reader-starter\data .\
-```
-
-If copying from the older baseline instead:
-
-```powershell
-Copy-Item -Recurse -Force C:\meditative-reader-starter-v0.2.2-buildfix\meditative-reader-starter\tools .\
-Copy-Item -Force C:\meditative-reader-starter-v0.2.2-buildfix\meditative-reader-starter\voices\en_US-lessac-medium.onnx .\voices\
-Copy-Item -Force C:\meditative-reader-starter-v0.2.2-buildfix\meditative-reader-starter\voices\en_US-lessac-medium.onnx.json .\voices\
-Copy-Item -Recurse -Force C:\meditative-reader-starter-v0.3.2.1-commandbox\meditative-reader-starter\data .\
 ```
 
 ## Build

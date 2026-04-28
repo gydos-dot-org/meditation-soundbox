@@ -406,25 +406,53 @@ private string _displayText = ""; // labeled display buffer
 
     private void Status() => Console.WriteLine($"Mode={_profile.MusicMode}; Rhythm={_profile.RhythmMode}; Flavor={_profile.SynthFlavor}; BPM={_profile.Bpm}; Strength={_profile.FrequencyStrength}; Freq={string.Join(",", _profile.FrequenciesHz)}");
 
-    private static void Header()
+private static void Header()
+{
+    // ============================================================
+    // ORIGINAL ASCII BANNER (PRESERVED EXACTLY)
+    //
+    // Key principle:
+    //   - DO NOT reconstruct this with B(n)
+    //   - DO NOT alter spacing
+    //   - This is pixel-art made of text
+    //
+    // We ONLY add color — we do NOT modify geometry.
+    // ============================================================
+
+    var old = Console.ForegroundColor;
+
+    void L(ConsoleColor c, string t)
     {
-      Console.WriteLine("â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ  â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ");
-      Console.WriteLine("");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ  ");
-      Console.WriteLine("     â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("");
-      Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.3-dev");
-      Console.WriteLine("");
-        Help();
+        Console.ForegroundColor = c;
+        Console.WriteLine(t);
     }
 
+    Console.WriteLine();
+
+    // TOP HALF
+    L(ConsoleColor.White,      "███    ███ ███████ ██████  ██ ████████  █████  ████████ ██  ██████  ███    ██");
+    L(ConsoleColor.Yellow,     "████  ████ ██      ██   ██ ██    ██    ██   ██    ██    ██ ██    ██ ████   ██");
+    L(ConsoleColor.DarkYellow, "██ ████ ██ █████   ██   ██ ██    ██    ███████    ██    ██ ██    ██ ██ ██  ██");
+    L(ConsoleColor.Red,        "██  ██  ██ ██      ██   ██ ██    ██    ██   ██    ██    ██ ██    ██ ██  ██ ██");
+    L(ConsoleColor.White,      "██      ██ ███████ ██████  ██    ██    ██   ██    ██    ██  ██████  ██   ████");
+
+    Console.WriteLine();
+
+    // BOTTOM HALF (THIS IS WHERE YOUR "BOX" WAS BREAKING)
+    L(ConsoleColor.Yellow,     "███████  ██████  ██    ██ ███    ██ ██████  ██████   ██████  ██   ██");
+    L(ConsoleColor.DarkYellow, "██      ██    ██ ██    ██ ████   ██ ██   ██ ██   ██ ██    ██  ██ ██");
+    L(ConsoleColor.Red,        "███████ ██    ██ ██    ██ ██ ██  ██ ██   ██ ██████  ██    ██   ███");
+    L(ConsoleColor.DarkYellow, "     ██ ██    ██ ██    ██ ██  ██ ██ ██   ██ ██   ██ ██    ██  ██ ██");
+    L(ConsoleColor.White,      "███████  ██████   ██████  ██   ████ ██████  ██████   ██████  ██   ██");
+
+    Console.ForegroundColor = old;
+
+    Console.WriteLine();
+    Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.3-dev");
+    Console.WriteLine();
+
+    Help();
+}
     private static void Help() => Console.WriteLine(@"Commands:
   music/m, read/r, pause/p, restart/b, stop/s
   text [words...]            set inline text, or paste block ending with .end
@@ -636,6 +664,7 @@ internal sealed class Options
         }
     }
 }
+
 
 
 
