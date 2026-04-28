@@ -28,6 +28,7 @@ using MeditativeReader.Core;
 using MeditativeReader.Config;
 using MeditativeReader.Bible;
 using NAudio.Wave;
+using System.Text;
 
 internal static class Program
 {
@@ -406,23 +407,66 @@ private string _displayText = ""; // labeled display buffer
 
     private void Status() => Console.WriteLine($"Mode={_profile.MusicMode}; Rhythm={_profile.RhythmMode}; Flavor={_profile.SynthFlavor}; BPM={_profile.Bpm}; Strength={_profile.FrequencyStrength}; Freq={string.Join(",", _profile.FrequenciesHz)}");
 
-    private static void Header()
+        private static void Header()
     {
-      Console.WriteLine("â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ  â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ");
-      Console.WriteLine("");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ  ");
-      Console.WriteLine("     â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
-      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
-      Console.WriteLine("");
-      Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.3-dev");
-      Console.WriteLine("");
+        // ============================================================
+        // UTF-8 SAFE COLORED BANNER
+        //
+        // WHY:
+        // Previous versions stored literal block characters that became
+        // corrupted (â–ˆâ–ˆâ–ˆ) due to encoding mismatches.
+        //
+        // FIX:
+        // We generate block characters via Unicode (\u2588) at runtime,
+        // making this banner stable across PowerShell, Git, and editors.
+        //
+        // STYLE:
+        // Inspired by BUILD-style gradient:
+        // white → yellow → dark yellow → red
+        // ============================================================
+
+        try
+        {
+            Console.OutputEncoding = new UTF8Encoding(false);
+            Console.InputEncoding = Encoding.UTF8;
+        }
+        catch { }
+
+        string B(int n) => new string('\u2588', n);
+
+        var old = Console.ForegroundColor;
+
+        void L(ConsoleColor c, string t)
+        {
+            Console.ForegroundColor = c;
+            Console.WriteLine(t);
+        }
+
+        Console.WriteLine();
+
+        L(ConsoleColor.White,      $"{B(3)}    {B(3)} {B(7)} {B(6)}  {B(2)} {B(8)}  {B(5)}  {B(8)} {B(2)}  {B(6)}  {B(3)}    {B(2)}");
+        L(ConsoleColor.Yellow,     $"{B(4)}  {B(4)} {B(2)}      {B(2)}   {B(2)} {B(2)}    {B(2)}    {B(2)}   {B(2)}    {B(2)}    {B(2)} {B(2)}    {B(2)} {B(4)}   {B(2)}");
+        L(ConsoleColor.DarkYellow, $"{B(2)} {B(4)} {B(2)} {B(5)}   {B(2)}   {B(2)} {B(2)}    {B(2)}    {B(7)}    {B(2)}    {B(2)} {B(2)}    {B(2)} {B(2)} {B(2)}  {B(2)}");
+        L(ConsoleColor.Red,        $"{B(2)}  {B(2)}  {B(2)} {B(2)}      {B(2)}   {B(2)} {B(2)}    {B(2)}    {B(2)}   {B(2)}    {B(2)}    {B(2)} {B(2)}    {B(2)} {B(2)}  {B(2)} {B(2)}");
+        L(ConsoleColor.White,      $"{B(2)}      {B(2)} {B(7)} {B(6)}  {B(2)}    {B(2)}    {B(2)}   {B(2)}    {B(2)}    {B(2)}  {B(6)}  {B(2)}   {B(4)}");
+
+        Console.WriteLine();
+
+        L(ConsoleColor.Yellow,     $"{B(7)}  {B(6)}  {B(2)}    {B(2)} {B(3)}    {B(2)} {B(6)}  {B(6)}   {B(6)}  {B(2)}   {B(2)}");
+        L(ConsoleColor.DarkYellow, $"{B(2)}      {B(2)}    {B(2)} {B(2)}    {B(2)} {B(4)}   {B(2)} {B(2)}   {B(2)} {B(2)}   {B(2)} {B(2)}    {B(2)}  {B(2)} {B(2)}");
+        L(ConsoleColor.Red,        $"{B(7)} {B(2)}    {B(2)} {B(2)}    {B(2)} {B(2)} {B(2)}  {B(2)} {B(2)}   {B(2)} {B(6)}  {B(2)}    {B(2)}   {B(3)}");
+        L(ConsoleColor.DarkYellow, $"     {B(2)} {B(2)}    {B(2)} {B(2)}    {B(2)} {B(2)}  {B(2)} {B(2)} {B(2)}   {B(2)} {B(2)}   {B(2)} {B(2)}    {B(2)}  {B(2)} {B(2)}");
+        L(ConsoleColor.White,      $"{B(7)}  {B(6)}   {B(6)}  {B(2)}   {B(4)} {B(6)}  {B(6)}   {B(6)}  {B(2)}   {B(2)}");
+
+        Console.ForegroundColor = old;
+
+        Console.WriteLine();
+        Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.3-dev");
+        Console.WriteLine();
+
         Help();
+    }
+
     }
 
     private static void Help() => Console.WriteLine(@"Commands:
@@ -636,6 +680,8 @@ internal sealed class Options
         }
     }
 }
+
+
 
 
 
