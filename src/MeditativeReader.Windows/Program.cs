@@ -26,6 +26,7 @@
 
 using MeditativeReader.Core;
 using MeditativeReader.Config;
+using MeditativeReader.Bible;
 using NAudio.Wave;
 
 internal static class Program
@@ -166,7 +167,13 @@ internal sealed class MeditationBox
     private readonly SpeechPlayer _speech = new();
     private readonly RecordingMixer _rec = new();
     private PiperTextToSpeech? _tts;
-    private string _text = "";
+private string _text = "";
+
+// ------------------------------------------------------------
+// Display buffer for labeled scripture output.
+// This is separate from _text, which is used for TTS.
+// ------------------------------------------------------------
+private string _displayText = ""; // labeled display buffer
     private string _speechPath = "";
     // Incremented for every fresh speech render so each new reading uses a new WAV path.
     private int _speechVersion;
@@ -245,12 +252,54 @@ internal sealed class MeditationBox
                 case "strength": SetEnum(parts.Skip(1), (FrequencyStrength v) => _profile = _profile.With(strength:v)); break;
                 case "bpm": if (double.TryParse(parts.ElementAtOrDefault(1), out var bpm)) { _profile = _profile.With(bpm:bpm); Apply(); } break;
                 case "kjv":
-                    // Load a KJV passage into _text. ResetSpeechForNewText() then forces
-                    // Piper to render that passage the next time read/r is used.
-                    _text = new KjvLookup(Path.Combine("data","metav","CSV","Verses.csv")).ReadPassage(line.Length > 3 ? line[3..].Trim() : "");
-                    ResetSpeechForNewText();
-                    Console.WriteLine(_text);
-                    break;
+{
+    // ------------------------------------------------------------
+    // KJV LOADING PIPELINE (v0.3.3-dev)
+    //
+    // This command now loads scripture into TWO buffers:
+    //
+    // 1. _displayText → contains full labeled verses
+    //    Example:
+    //      John 3:16 For God so loved the world...
+    //
+    // 2. _text → contains CLEAN verse text ONLY
+    //    Example:
+    //      For God so loved the world...
+    //
+    // Why this matters:
+    // - Piper should NOT read verse numbers (it sounds unnatural)
+    // - The user SHOULD still SEE verse labels in the console
+    //
+    // This implements the ROADMAP concept:
+    //   DisplayBuffer vs ReadingBuffer
+    // ------------------------------------------------------------
+
+    string reference = line.Length > 3 ? line[3..].Trim() : "";
+
+    var passage = new KjvLoader(Path.Combine("data", "metav", "CSV", "Verses.csv"))
+        .LoadPassage(reference);
+
+    // If nothing loaded (file missing or no match), show message only
+    if (string.IsNullOrWhiteSpace(passage.SpeechText))
+    {
+        Console.WriteLine(passage.DisplayText);
+        break;
+    }
+
+    // Store both buffers
+    _displayText = passage.DisplayText;
+    _text = passage.SpeechText;
+
+    // Force Piper to re-render audio for new content
+    ResetSpeechForNewText();
+
+    // Show labeled verses to the user
+    Console.WriteLine(_displayText);
+    Console.WriteLine();
+    Console.WriteLine($"Loaded {passage.VerseCount} verse(s).");
+
+    break;
+}
                 case "e": case "export": StartExport(parts.ElementAtOrDefault(1)); break;
                 case "cancel": _exportCts?.Cancel(); Console.WriteLine("Cancel requested."); break;
                 case "status": Status(); break;
@@ -385,7 +434,9 @@ internal sealed class MeditationBox
   flavor Analog|Pipe|PurePad|EightOhEight|NineOhNine|Moogish|Mpcish|YamahaFm|CasioToy|ThreeOhThree|AkaiSampler
   strength Subtle|Noticeable|Dominant
   bpm 92
-  kjv Proverbs 24:3-4       load KJV from Meta-V CSV
+  kjv John 3:16           load single verse
+  kjv John 3              load full chapter
+  kjv Proverbs 24:3-4     load verse range
   export 1 | e 1             async music-only export
   cancel, status, help, quit");
 }
@@ -585,3 +636,7 @@ internal sealed class Options
         }
     }
 }
+
+
+
+
