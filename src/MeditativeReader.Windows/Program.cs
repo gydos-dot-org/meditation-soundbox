@@ -1,4 +1,4 @@
-// ============================================================================
+﻿// ============================================================================
 // Program.cs - Windows console host for Meditate / Meditation Soundbox
 // ============================================================================
 //
@@ -25,6 +25,7 @@
 // ============================================================================
 
 using MeditativeReader.Core;
+using MeditativeReader.Config;
 using NAudio.Wave;
 
 internal static class Program
@@ -358,19 +359,19 @@ internal sealed class MeditationBox
 
     private static void Header()
     {
-      Console.WriteLine("███    ███ ███████ ██████  ██ ████████  █████  ████████ ██  ██████  ███    ██");
-      Console.WriteLine("████  ████ ██      ██   ██ ██    ██    ██   ██    ██    ██ ██    ██ ████   ██");
-      Console.WriteLine("██ ████ ██ █████   ██   ██ ██    ██    ███████    ██    ██ ██    ██ ██ ██  ██");
-      Console.WriteLine("██  ██  ██ ██      ██   ██ ██    ██    ██   ██    ██    ██ ██    ██ ██  ██ ██");
-      Console.WriteLine("██      ██ ███████ ██████  ██    ██    ██   ██    ██    ██  ██████  ██   ████");
+      Console.WriteLine("â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ");
+      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ");
+      Console.WriteLine("â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ");
+      Console.WriteLine("â–ˆâ–ˆ  â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ      â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ");
+      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆ    â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ");
       Console.WriteLine("");
-      Console.WriteLine("███████  ██████  ██    ██ ███    ██ ██████  ██████   ██████  ██   ██");
-      Console.WriteLine("██      ██    ██ ██    ██ ████   ██ ██   ██ ██   ██ ██    ██  ██ ██ ");
-      Console.WriteLine("███████ ██    ██ ██    ██ ██ ██  ██ ██   ██ ██████  ██    ██   ███  ");
-      Console.WriteLine("     ██ ██    ██ ██    ██ ██  ██ ██ ██   ██ ██   ██ ██    ██  ██ ██ ");
-      Console.WriteLine("███████  ██████   ██████  ██   ████ ██████  ██████   ██████  ██   ██");
+      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
+      Console.WriteLine("â–ˆâ–ˆ      â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
+      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ    â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ  ");
+      Console.WriteLine("     â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ   â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ ");
+      Console.WriteLine("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆ   â–ˆâ–ˆ");
       Console.WriteLine("");
-      Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.2.5");
+      Console.WriteLine("                    MEDITATION SOUNDBOX v0.3.3-dev");
       Console.WriteLine("");
         Help();
     }
@@ -395,6 +396,8 @@ internal sealed class Options
     public string? Piper { get; private set; }
     public string? Voice { get; private set; }
     public string? TextFile { get; private set; }
+    public string? ProfileName { get; private set; }
+
     public double LengthScale { get; private set; } = 1.25;
     public double SentenceSilence { get; private set; } = 0.45;
     public FrequencyStrength Strength { get; private set; } = FrequencyStrength.Noticeable;
@@ -406,25 +409,179 @@ internal sealed class Options
     public static Options Parse(string[] args)
     {
         var o = new Options();
-        for (int i=0;i<args.Length;i++)
+
+        // ------------------------------------------------------------
+        // v0.3.3-dev profile bootstrap
+        // ------------------------------------------------------------
+        // The older app required long command lines such as:
+        //
+        //   --piper ".\tools\piper\piper\piper.exe"
+        //   --voice ".\voices\en_US-lessac-medium.onnx"
+        //
+        // The new profile system lets the user say:
+        //
+        //   --profile default
+        //
+        // This keeps the old command-line arguments working while allowing
+        // profile values to become the starting/default configuration.
+        // Explicit command-line arguments below still override the profile.
+        // ------------------------------------------------------------
+
+        string? requestedProfile = FindOptionValue(args, "--profile");
+
+        if (!string.IsNullOrWhiteSpace(requestedProfile))
         {
-            string? next() => i+1 < args.Length ? args[++i] : null;
-            switch(args[i])
+            o.ProfileName = requestedProfile;
+            ApplyProfileDefaults(o, requestedProfile);
+        }
+
+        for (int i = 0; i < args.Length; i++)
+        {
+            string? next() => i + 1 < args.Length ? args[++i] : null;
+
+            switch (args[i])
             {
-                case "--freq": if (double.TryParse(next(), out var f)) o.Freqs.Add(f); break;
-                case "--piper": o.Piper = next(); break;
-                case "--voice": o.Voice = next(); break;
-                case "--text-file": o.TextFile = next(); break;
-                case "--length-scale": if (double.TryParse(next(), out var l)) o.LengthScale = l; break;
-                case "--sentence-silence": if (double.TryParse(next(), out var s)) o.SentenceSilence = s; break;
-                case "--frequency-strength": if (Enum.TryParse<FrequencyStrength>(next(), true, out var fs)) o.Strength = fs; break;
-                case "--music-mode": if (Enum.TryParse<MusicMode>(next(), true, out var mm)) o.Mode = mm; break;
-                case "--rhythm": if (Enum.TryParse<RhythmMode>(next(), true, out var rm)) { o.Rhythm = rm; if (rm != RhythmMode.None) o.Mode = MusicMode.Hybrid; } break;
-                case "--synth-flavor": if (Enum.TryParse<SynthFlavor>(next(), true, out var sf)) o.Flavor = sf; break;
-                case "--bpm": if (double.TryParse(next(), out var bpm)) o.Bpm = bpm; break;
+                case "--profile":
+                    // Already handled above. Consume its value here so the parser
+                    // does not accidentally treat the profile name as another option.
+                    _ = next();
+                    break;
+
+                case "--freq":
+                    if (double.TryParse(next(), out var f))
+                    {
+                        o.Freqs.Add(f);
+                    }
+                    break;
+
+                case "--piper":
+                    o.Piper = next();
+                    break;
+
+                case "--voice":
+                    o.Voice = next();
+                    break;
+
+                case "--text-file":
+                    o.TextFile = next();
+                    break;
+
+                case "--length-scale":
+                    if (double.TryParse(next(), out var l))
+                    {
+                        o.LengthScale = l;
+                    }
+                    break;
+
+                case "--sentence-silence":
+                    if (double.TryParse(next(), out var s))
+                    {
+                        o.SentenceSilence = s;
+                    }
+                    break;
+
+                case "--frequency-strength":
+                    if (Enum.TryParse<FrequencyStrength>(next(), true, out var fs))
+                    {
+                        o.Strength = fs;
+                    }
+                    break;
+
+                case "--music-mode":
+                    if (Enum.TryParse<MusicMode>(next(), true, out var mm))
+                    {
+                        o.Mode = mm;
+                    }
+                    break;
+
+                case "--rhythm":
+                    if (Enum.TryParse<RhythmMode>(next(), true, out var rm))
+                    {
+                        o.Rhythm = rm;
+
+                        // Preserve the legacy convenience behavior:
+                        // choosing a rhythm automatically moves the soundbox
+                        // out of purely ambient mode unless the rhythm is None.
+                        if (rm != RhythmMode.None)
+                        {
+                            o.Mode = MusicMode.Hybrid;
+                        }
+                    }
+                    break;
+
+                case "--synth-flavor":
+                    if (Enum.TryParse<SynthFlavor>(next(), true, out var sf))
+                    {
+                        o.Flavor = sf;
+                    }
+                    break;
+
+                case "--bpm":
+                    if (double.TryParse(next(), out var bpm))
+                    {
+                        o.Bpm = bpm;
+                    }
+                    break;
             }
         }
-        if (o.Freqs.Count == 0) o.Freqs.AddRange([528.0,40.0,8.0]);
+
+        // If neither profile nor command line supplied frequencies, use the
+        // historical defaults so old launch behavior remains familiar.
+        if (o.Freqs.Count == 0)
+        {
+            o.Freqs.AddRange([528.0, 40.0, 8.0]);
+        }
+
         return o;
+    }
+
+    private static string? FindOptionValue(string[] args, string optionName)
+    {
+        for (int i = 0; i < args.Length - 1; i++)
+        {
+            if (string.Equals(args[i], optionName, StringComparison.OrdinalIgnoreCase))
+            {
+                return args[i + 1];
+            }
+        }
+
+        return null;
+    }
+
+    private static void ApplyProfileDefaults(Options o, string profileName)
+    {
+        var profile = SndBxConfig.Load(profileName);
+
+        o.Piper = profile.PiperPath;
+        o.Voice = profile.VoicePath;
+        o.TextFile = profile.DefaultTextFile;
+        o.Bpm = profile.Bpm;
+
+        o.Freqs.Clear();
+
+        foreach (var frequency in profile.Frequencies.Where(v => v > 0))
+        {
+            o.Freqs.Add(frequency);
+        }
+
+        if (Enum.TryParse<MusicMode>(profile.Mode, true, out var mode))
+        {
+            o.Mode = mode;
+        }
+
+        if (Enum.TryParse<FrequencyStrength>(profile.Strength, true, out var strength))
+        {
+            o.Strength = strength;
+        }
+
+        if (Enum.TryParse<RhythmMode>(profile.Rhythm, true, out var rhythm))
+        {
+            o.Rhythm = rhythm;
+        }
+
+        if (Enum.TryParse<SynthFlavor>(profile.Flavor, true, out var flavor))
+        {
+            o.Flavor = flavor;
+        }
     }
 }
